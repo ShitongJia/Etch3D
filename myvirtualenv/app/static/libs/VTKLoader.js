@@ -20,13 +20,14 @@ THREE.VTKLoader.prototype = {
 
         request.addEventListener( 'load', function ( event ) {
 
-            var geometry = scope.parse( event.target.responseText );
+            var res = scope.parse( event.target.responseText );
 
-            scope.dispatchEvent( { type: 'load', content: geometry } );
+            scope.dispatchEvent( { type: 'load', content: res } );
 
-            if ( callback ) callback( geometry );
+            if ( callback ) callback( res);
 
         }, false );
+
 
         request.addEventListener( 'progress', function ( event ) {
 
@@ -45,72 +46,60 @@ THREE.VTKLoader.prototype = {
 
     },
 
+
+
     parse: function ( data ) {
 
-        var geometry = new THREE.Geometry();
+       
+        var res= new Object();
+       
+        var value = [];
+        
 
-        function vertex( x, y, z ) {
-
-            geometry.vertices.push( new THREE.Vector3( x, y, z ) );
-
-        }
-
-        function face3( a, b, c ) {
-
-            geometry.faces.push( new THREE.Face3( a, b, c ) );
-
-        }
-
-        function face4( a, b, c, d ) {
-
-            geometry.faces.push( new THREE.Face4( a, b, c, d ) );
-
+        function addValue(x){
+            value.push(x);
         }
 
         var pattern, result;
 
-        // float float float
 
-        pattern = /([\+|\-]?[\d]+[\.][\d|\-|e]+)[ ]+([\+|\-]?[\d]+[\.][\d|\-|e]+)[ ]+([\+|\-]?[\d]+[\.][\d|\-|e]+)/g;
+        pattern = /DIMENSIONS+[ ]+([\d]+)[ ]+([\d]+)[ ]+([\d]+)/g;
 
-        while ( ( result = pattern.exec( data ) ) != null ) {
+        if ( result = pattern.exec( data ) ) {
+            res.dimension = [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
+        }
 
-            // ["1.0 2.0 3.0", "1.0", "2.0", "3.0"]
+        pattern = /ORIGIN+[ ]+([\+|\-]?[\d]+)[ ]+([\+|\-]?[\d]+)[ ]+([\+|\-]?[\d]+)/g;
 
-            vertex( parseFloat( result[ 1 ] ), parseFloat( result[ 2 ] ), parseFloat( result[ 3 ] ) );
+        if ( result = pattern.exec( data ) ) {
+            res.origin = [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
+        }
 
+        pattern = /SPACING+[ ]+([\+|\-]?[\d]+[\.][\d]+)[ ]+([\+|\-]?[\d]+[\.][\d]+)[ ]+([\+|\-]?[\d]+[\.][\d]+)/g;
+
+        if ( result = pattern.exec( data ) ) {
+            res.origin = [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
+        }
+
+        // float
+
+        pattern = /[\+|\-]?\d+\.\d{6}\s/g
+        while ( ( result = pattern.exec( data ) ) != null ){
+            addValue( parseFloat(result));
         }
 
         // 3 int int int
 
-        pattern = /3[ ]+([\d]+)[ ]+([\d]+)[ ]+([\d]+)/g;
 
-        while ( ( result = pattern.exec( data ) ) != null ) {
 
-            // ["3 1 2 3", "1", "2", "3"]
-
-            face3( parseInt( result[ 1 ] ), parseInt( result[ 2 ] ), parseInt( result[ 3 ] ) );
-
-        }
-
-        // 4 int int int int
-
-        pattern = /4[ ]+([\d]+)[ ]+([\d]+)[ ]+([\d]+)[ ]+([\d]+)/g;
-
-        while ( ( result = pattern.exec( data ) ) != null ) {
-
-            // ["4 1 2 3 4", "1", "2", "3", "4"]
-
-            face4( parseInt( result[ 1 ] ), parseInt( result[ 2 ] ), parseInt( result[ 3 ] ), parseInt( result[ 4 ] ) );
-
-        }
 
         //geometry.computeCentroids();
-        geometry.computeFaceNormals();
-        geometry.computeVertexNormals();
-        geometry.computeBoundingSphere();
+        // geometry.computeFaceNormals();
+        // geometry.computeVertexNormals();
+        // geometry.computeBoundingSphere();
+        res.weight = value;
 
-        return geometry;
+        return res;
 
     }
 

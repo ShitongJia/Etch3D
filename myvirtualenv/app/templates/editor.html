@@ -197,39 +197,19 @@
 		<div id = "tool_source" class= "draginput">
 		<span style="font-size: 16px;"> View Source </span>
 		</div>
-		
-		<div id = "save_as_svg" class= "draginput">
-		<button style="font-size: 12px;" onclick ="submit_download_form('svg')"> Save as SVG </button>
-		</div>
-
+		<form action="/sendServer" method="POST" role="form">
+			<div class= "draginput">	
+				<!-- <form type="form"> -->
+				<!--  <input type="hidden" id="output_format" name="output_format" value="">
+				 <input type="hidden" id="data" name="data" value=""> -->
+				 <input class="form-control" type="button" name="sendSvg" id = "send_as_svg" >
+				 <span> Send the SVG </span>
+				<!-- </form> -->
+			
+			</div>
+		</form>
 	</div>
-<div>
-	<form id="save_as_svg" method="post" action="/save" enctype="multipart/form-data">
-	 <input type="hidden" id="output_format" name="output_format" value="">
-	 <input type="hidden" id="data" name="data" value="">
-	</form>
-</div>
 
-<script type="text/javascript">
-function submit_download_form(output_format)
-{
-	// Get the SVG element
-	var tmp = document.getElementById("svgcanvas");
-	var svg = tmp.getElementsByTagName("svg")[0];
-	// Extract the data as SVG text string
-	var svg_xml = (new XMLSerializer).serializeToString(svg);
-
-	// Submit the <FORM> to the server.
-	// The result will be an attachment file to download.
-	var form = document.getElementById("save_as_svg");
-	form['output_format'].value = output_format;
-	form['data'].value = svg_xml ;
-	form.submit();
-}
-
-
-
-</script>
 	
 	<div id="rect_panel" class="context_panel">
 	  <h4 class="clearfix">Rectangle</h4>

@@ -2560,6 +2560,27 @@
         }
         svgCanvas.save(saveOpts);
       };
+
+      var clickSend = function(){
+      
+        var str = svgCanvas.getSvgString();
+        console.log("I am sending a message!")
+        console.log(str); 
+
+        $.ajax({
+          url: '/sendServer',
+          type: 'POST',
+          data: {"sendSvg":str},
+          // dataType: 'json',
+          // contentType: 'application/json;charset=UTF-8',
+          success: function(){
+            console.log("you have already sent the file to backend!");
+          }
+        });        
+
+    
+      };
+        
       
       var saveSourceEditor = function(){
         if (!editingsource) return;
@@ -3244,6 +3265,7 @@
           {sel:'#tool_zoom', fn: clickZoom, evt: 'mouseup', key: ['Z', true]},
           {sel:'#tool_clear', fn: clickClear, evt: 'mouseup', key: [modKey + 'N', true]},
           {sel:'#tool_save', fn: function() { editingsource?saveSourceEditor():clickSave()}, evt: 'mouseup', key: [modKey + 'S', true]},
+          
           {sel:'#tool_export', fn: clickExport, evt: 'mouseup'},
           {sel:'#tool_open', fn: clickOpen, evt: 'mouseup'},
           {sel:'#tool_import', fn: clickImport, evt: 'mouseup'},
@@ -3253,8 +3275,8 @@
           {sel:'#tool_rulers', fn: clickRulers, evt: 'click'},
           {sel:'#tool_source_cancel,#svg_source_overlay,#tool_docprops_cancel,#tool_prefs_cancel', fn: cancelOverlays, evt: 'click', key: ['esc', false, false], hidekey: true},
           {sel:'#tool_source_save', fn: saveSourceEditor, evt: 'click'},
-// 		  {sel: '#tool_save_as', fn:clickSave,evt:'mouseup'},
-           {sel:'#tool_delete,#tool_delete_multi', fn: deleteSelected, evt: 'click', key: ['del/backspace', true]},
+          {sel:'#send_as_svg', fn:clickSend, evt:'click'},
+          {sel:'#tool_delete,#tool_delete_multi', fn: deleteSelected, evt: 'click', key: ['del/backspace', true]},
           {sel:'#tool_reorient', fn: reorientPath, evt: 'click'},
           {sel:'#tool_node_link', fn: linkControlPoints, evt: 'change'},
           {sel:'#tool_node_clone', fn: clonePathNode, evt: 'click'},

@@ -4,11 +4,11 @@
 
 <head>
     <title>View Uploaded VTK </title>
-    <script type="text/javascript" src="{{ url_for('static', 'libs/three.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', 'libs/VTKLoader.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/three.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/VTKLoader.js') }}"></script>
 
-    <script type="text/javascript" src="{{ url_for('static', 'libs/stats.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', 'libs/dat.gui.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/stats.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/dat.gui.js') }}"></script>
     <style>
         body {
             /* set margin to 0 and overflow to hidden, to go fullscreen */
@@ -76,9 +76,10 @@
 
         var loader = new THREE.VTKLoader();
         var group = new THREE.Object3D();
-        loader.load("../assets/models/bunny.vtk", function (geometry) {
+        loader.load("/uploads/eik3d.vtk", function (geometry) {
             var mat = new THREE.MeshLambertMaterial({color: 0xaaffaa});
             group = new THREE.Mesh(geometry, mat);
+            console.log(geometry);
             group.scale.set(9, 9, 9);
             scene.add(group);
         });
