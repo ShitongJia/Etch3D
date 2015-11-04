@@ -27,7 +27,7 @@ def editor():
 
 @app.route('/sendServer', methods=['GET','POST'])
 def send_as_svg():
-        svgStr =  request.form.get('sendSvg')
+        svgStr =  request.form['sendSvg']
         print svgStr
         return render_template('receiveSvg.html',str=svgStr)
 

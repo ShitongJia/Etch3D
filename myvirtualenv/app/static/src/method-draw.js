@@ -2564,17 +2564,17 @@
       var clickSend = function(){
       
         var str = svgCanvas.getSvgString();
-        console.log("I am sending a message!")
-        console.log(str); 
+        //console.log("I am sending a message!")
+        //console.log(str); 
 
         $.ajax({
           url: '/sendServer',
           type: 'POST',
-          data: {"sendSvg":str},
+          data: {sendSvg:str},
           // dataType: 'json',
           // contentType: 'application/json;charset=UTF-8',
           success: function(){
-            console.log("you have already sent the file to backend!");
+            console.log("I have sent the svg to the server!");
           }
         });        
 
