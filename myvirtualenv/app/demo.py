@@ -43,10 +43,6 @@ def upload():
         return redirect(url_for('uploaded_file',
                                 filename=filename))
 
-@app.route('/loadVTK')
-def loadvtk_file():
-    return render_template('loadVTK.html')
-
 
 @app.route('/marchingCube')
 def marching_cube():
