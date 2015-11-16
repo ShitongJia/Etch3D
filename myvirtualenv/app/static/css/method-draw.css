@@ -1612,15 +1612,15 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 #workarea.eyedropper {
-  cursor: {{url_for('static', filename ='images/eyedropper.png')}}, 0 16, crosshair;
+  cursor: url(../images/eyedropper.png) 0 16, crosshair;
 }
 
 #workarea.fhpath {
-  cursor: {{url_for('static', filename = 'images/pencil_cursor.png')}}, 0 16, crosshair;
+  cursor: url(../images/pencil_cursor.png) 0 16, crosshair;
 }
 
 #workarea.rotate * {
-  cursor: {{url_for('static', filename = 'images/rotate.png')}}, auto;
+  cursor: url(../images/rotate.png) 12 12, auto;
 }
 
 #workarea.select text, #workarea.multiselect text {
