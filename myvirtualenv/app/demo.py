@@ -51,14 +51,14 @@ def marching_cube():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     # if filename.rsplit('.', 1)[1] == 'vtk':
-    #     return render_template('loadVTK.html',filename)
+    #     send_from_directory(app.config['UPLOAD_FOLDER'],
+    #                             filename)
+    #     return render_template('Marching-Cubes.html')
+        
 
     # else: 
         return send_from_directory(app.config['UPLOAD_FOLDER'],
                                 filename)
-
-
-
 
 
 if __name__ == '__main__':

@@ -54,11 +54,13 @@ var clock = new THREE.Clock();
 
 // custom global variables
 
-var item;
+var maxValue=0.0;
 
 var gui;
 var parameters;
 var curIsolevel = 4.0;
+
+var item = new Object();
 
 var group = new THREE.Object3D();
 
@@ -110,12 +112,12 @@ function init()
 	
 	scene.add( new THREE.AxisHelper(100) );
 	
-	marchingCube(curIsolevel);
-	
-	displaygui();
+	marchingCube(curIsolevel,0);
+	//maxValue  = 10;
+	//displaygui(maxValue);
 }
 
-function marchingCube(curIsolevel){
+function marchingCube(curIsolevel,initial){
 
 	//scene.remove(preMesh);
 
@@ -124,13 +126,15 @@ function marchingCube(curIsolevel){
 	
 	loader.load("/uploads/eik3d.vtk",function (vtkFile){
 	var res = vtkFile;
-	
+
 	//variables for the marching-cube algorithm
 	var points = [];
 	var values = [];
 	
+	
 	var scalar = res.weight; 
 	var size = res.dimension[1];
+	//console.log(scalar);
 	// number of cubes along a side
 	
 	var axisMin = -size/2;
@@ -148,12 +152,12 @@ function marchingCube(curIsolevel){
 		var z = axisMin + axisRange * k / (size - 1);
 		points.push( new THREE.Vector3(x,y,z) );
 		var v = scalar[index];index++;
-
+		maxValue = Math.max(maxValue,v);
 		
 	    values.push(v);
 	}
 	
-	
+	//console.log("maxValue after update is: "+maxValue);
 	// Marching Cubes Algorithm
 	
 	var size2 = size * size;
@@ -319,24 +323,28 @@ function marchingCube(curIsolevel){
 	group = new THREE.Mesh( geometry, colorMaterial );
 	
 	scene.add(group);
+	if(initial==0){
+	displaygui(maxValue,initial);
+	}
 	
 
 	});
-
-
+	//console.log("maxValue after load is: "+maxValue);
+	//console.log("item's dimension: " + item.numOfDim);
 
 }
 
-function displaygui(){
+function displaygui(maxValue,initial){
+	//console.log(maxValue);
 	var gui = new dat.GUI();
 	var jar;
 	parameters = {isolevel:4.0};
-	var itemIsoLevel = gui.add(parameters, "isolevel").min(0).max(20).step(0.01).listen();
-	itemIsoLevel.onFinishChange(function(jar){
+	var maxValueIsoLevel = gui.add(parameters, "isolevel").min(0).max(maxValue).step(0.01).listen();
+	maxValueIsoLevel.onFinishChange(function(jar){
 	
 	curIsolevel = jar;
 	scene.remove(group);
-	marchingCube(curIsolevel);
+	marchingCube(curIsolevel,initial+1);
 	//console.log("values after onChange is: "+curIsolevel);
 	});
 	gui.open();
