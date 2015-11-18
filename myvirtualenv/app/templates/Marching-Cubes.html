@@ -30,11 +30,11 @@
 <link rel=stylesheet href="{{url_for('static', filename='css/jquery-ui.css')}}" type="text/css" />
 <link rel=stylesheet href="{{url_for('static', filename='css/info.css')}}" type="text/css"/>
 <script type="text/javascript" src="{{url_for('static',filename='js/info.js')}}"></script>
-<div id="infoButton"></div>
+<!-- <div id="infoButton"></div>
 <div id="infoBox" title="Demo Information">
 This three.js demo is part of a collection at
-<a href="http://stemkoski.github.io/Three.js/">http://stemkoski.github.io/Three.js/</a>
-</div>
+
+</div> -->
 <!-- ------------------------------------------------------------ -->
 
 <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
@@ -117,22 +117,30 @@ function init()
 	//displaygui(maxValue);
 }
 
-function marchingCube(curIsolevel,initial){
 
+
+function marchingCube(curIsolevel,initial){
+	
 	//scene.remove(preMesh);
 
 	//console.log("Begin of the marching cube algorithm");
 	var loader = new THREE.VTKLoader();
-	
-	loader.load("/uploads/eik3d.vtk",function (vtkFile){
-	var res = vtkFile;
 
+	// loader.load("/uploads/eik3d.vtk",function (vtkFile){
+	
+
+	//loader.load("/uploads/eik3d.vtk",function (vtkFile){
+	loader.load("/{{url}}",function (vtkFile){
+
+	var res = vtkFile;
+	//console.log("the loaded vtkFile in pass url is: "+res.dimension);
 	//variables for the marching-cube algorithm
 	var points = [];
 	var values = [];
 	
 	
 	var scalar = res.weight; 
+
 	var size = res.dimension[1];
 	//console.log(scalar);
 	// number of cubes along a side
@@ -331,7 +339,7 @@ function marchingCube(curIsolevel,initial){
 	});
 	//console.log("maxValue after load is: "+maxValue);
 	//console.log("item's dimension: " + item.numOfDim);
-
+	//console.log(result);
 }
 
 function displaygui(maxValue,initial){

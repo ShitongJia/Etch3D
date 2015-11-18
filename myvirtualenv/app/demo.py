@@ -40,26 +40,22 @@ def upload():
 
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        return redirect(url_for('uploaded_file',
+        if filename.rsplit('.', 1)[1] == 'vtk':
+            return redirect(url_for('marching_cube',filename=filename))
+        else:
+            return redirect(url_for('uploaded_file',
                                 filename=filename))
 
-@app.route('/marchingCube')
-def marching_cube():
-    return render_template('Marching-Cubes.html')
 
-# @app.route('/marchingCube/<filename>')
-# def marching_cube(filename):
-#     return render_template('Marching-Cubes.html',url='/uploads/'+filename)
+@app.route('/marchingCube/<filename>')
+def marching_cube(filename):
+    return render_template('Marching-Cubes.html',url=app.config['UPLOAD_FOLDER']+filename)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    # if filename.rsplit('.', 1)[1] == 'vtk':
-    #     return redirect(url_for('marching_cube',filename=filename))
-        
-
-    # else: 
-        return send_from_directory(app.config['UPLOAD_FOLDER'],
-                                filename)
+ 
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                            filename)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,3 @@
-/**
- * @author mrdoob / http://mrdoob.com/
- */
-
 THREE.VTKLoader = function () {};
 
 THREE.VTKLoader.prototype = {
@@ -94,13 +90,6 @@ THREE.VTKLoader.prototype = {
 
         // 3 int int int
 
-
-
-
-        //geometry.computeCentroids();
-        // geometry.computeFaceNormals();
-        // geometry.computeVertexNormals();
-        // geometry.computeBoundingSphere();
         res.weight = value;
 
         return res;
