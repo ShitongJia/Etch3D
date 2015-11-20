@@ -34,7 +34,7 @@
       initOpacity: 1,
       imgPath: 'static/images/',
       extPath: 'static/extensions/',
-      jGraduatePath: 'jgraduate/images/',
+      jGraduatePath: 'static/lib/jgraduate/images/',
       extensions: [],
       initTool: 'select',
       wireframe: false,
@@ -2566,11 +2566,13 @@
         var str = svgCanvas.getSvgString();
         //console.log("I am sending a message!")
         //console.log(str); 
+        var svg_xml = (new XMLSerializer).serializeToString(str);
 
+      
         $.ajax({
           url: '/sendServer',
           type: 'POST',
-          data: {sendSvg:str},
+          data: {sendSvg:svg_xml},
           // dataType: 'json',
           // contentType: 'application/json;charset=UTF-8',
           success: function(){
