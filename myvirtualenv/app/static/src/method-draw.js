@@ -2564,7 +2564,7 @@
       var clickSend = function(){
       
         var str = svgCanvas.getSvgString();
-        //console.log("I am sending a message!")
+      
         //console.log(str); 
         var svg_xml = (new XMLSerializer).serializeToString(str);
 
