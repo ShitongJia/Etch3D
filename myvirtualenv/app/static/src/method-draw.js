@@ -531,22 +531,33 @@
         c.height = svgCanvas.contentH;
         canvg(c, data.svg, {renderCallback: function() {
           var datauri = c.toDataURL('image/png');
-          exportWindow.location.href = datauri;
-          var done = $.pref('export_notice_done');
-          if(done !== "all") {
-            var note = uiStrings.notification.saveFromBrowser.replace('%s', 'PNG');
-            
-            // Check if there's issues
-            if(issues.length) {
-              var pre = "\n \u2022 ";
-              note += ("\n\n" + uiStrings.notification.noteTheseIssues + pre + issues.join(pre));
-            } 
-            
-            // Note that this will also prevent the notice even though new issues may appear later.
-            // May want to find a way to deal with that without annoying the user
-            $.pref('export_notice_done', 'all'); 
-            exportWindow.alert(note);
+         
+           $.ajax({
+          url: '/sendServer',
+          type: 'POST',
+          data: {sendPNG:datauri},
+          // dataType: 'json',
+          // contentType: 'application/json;charset=UTF-8',
+          success: function(){
+            console.log("The data URI for the picture is: "+datauri);
           }
+        });        
+          exportWindow.location.href = datauri;
+          // var done = $.pref('export_notice_done');
+          // if(done !== "all") {
+          //   var note = uiStrings.notification.saveFromBrowser.replace('%s', 'PNG');
+            
+          //   // Check if there's issues
+          //   if(issues.length) {
+          //     var pre = "\n \u2022 ";
+          //     note += ("\n\n" + uiStrings.notification.noteTheseIssues + pre + issues.join(pre));
+          //   } 
+            
+          //   // Note that this will also prevent the notice even though new issues may appear later.
+          //   // May want to find a way to deal with that without annoying the user
+          //   $.pref('export_notice_done', 'all'); 
+          //   exportWindow.alert(note);
+          // }
         }});
       };
       
@@ -2379,8 +2390,8 @@
         if(window.canvg) {
           svgCanvas.rasterExport();
         } else {
-          $.getScript('lib/canvg/rgbcolor.js', function() {
-            $.getScript('lib/canvg/canvg.js', function() {
+          $.getScript('static/lib/canvg/rgbcolor.js', function() {
+            $.getScript('static/lib/canvg/canvg.js', function() {
               svgCanvas.rasterExport();
             });
           });
@@ -2562,23 +2573,23 @@
       };
 
       var clickSend = function(){
+        clickExport();
+        // var str = svgCanvas.getSvgString();
       
-        var str = svgCanvas.getSvgString();
-      
-        //console.log(str); 
-        var svg_xml = (new XMLSerializer).serializeToString(str);
+        // //console.log(str); 
+        // var svg_xml = new XMLSerializer().serializeToString(str);
 
       
-        $.ajax({
-          url: '/sendServer',
-          type: 'POST',
-          data: {sendSvg:svg_xml},
-          // dataType: 'json',
-          // contentType: 'application/json;charset=UTF-8',
-          success: function(){
-            console.log("I have sent the svg to the server!");
-          }
-        });        
+        // $.ajax({
+        //   url: '/sendServer',
+        //   type: 'POST',
+        //   data: {sendSvg:svg_xml},
+        //   // dataType: 'json',
+        //   // contentType: 'application/json;charset=UTF-8',
+        //   success: function(){
+        //     console.log("I have sent the svg to the server!");
+        //   }
+        // });        
 
     
       };

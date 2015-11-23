@@ -1,5 +1,7 @@
 import os
 import json
+import urlparse
+import base64
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory,json,jsonify
 from werkzeug import secure_filename
 
@@ -26,10 +28,29 @@ def editor():
 	
 
 @app.route('/sendServer', methods=['GET','POST'])
-def send_as_svg():
-        svgStr =  request.form['sendSvg']
-        print svgStr
-        return render_template('receiveSvg.html',str=svgStr)
+def send_as_png():
+        datauri =  request.form['sendPNG']
+       
+        up = urlparse.urlparse(datauri)
+        head, data = up.path.split(',', 1)
+        bits = head.split(';')
+        mime_type = bits[0] if bits[0] else 'text/plain'
+        charset, b64 = 'ASCII', False
+        for bit in bits:
+            if bit.startswith('charset='):
+                charset = bit[8:]
+            elif bit == 'base64':
+                b64 = True
+
+        # Do something smart with charset and b64 instead of assuming
+        plaindata = data.decode("base64")
+
+        # Do something smart with mime_type
+        with open('uploads/spam.png', 'wb') as f:
+            f.write(plaindata)
+
+
+        return render_template('receiveSvg.html',str=datauri)
 
 @app.route('/upload', methods=['POST'])
 def upload():
