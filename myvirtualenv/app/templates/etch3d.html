@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/etch3d.css')}}" type="text/css"/>
+  </head>
+  <body>
+
+      <div class="header">
+        <h1 class="text-muted" style ="text-align:center">Build a 3d model base on your 2d mask</h1>
+      </div>
+      <hr/>
+
+      <div id= "editor">
+        <iframe src = "/editor" width="850px" height ="900px" scrolling = "yes" id="editor"></iframe>
+      </div>
+
+     <div id="model">
+         <iframe src="/marchingCube" width="650px" height ="900px" scrolling = "yes" id="model"></iframe>
+      </div>
+     
+     
+
+      
+     
+
+  </body>
+</html>

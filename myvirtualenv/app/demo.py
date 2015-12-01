@@ -18,14 +18,21 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 
+
 @app.route('/')
 def index():
+    return render_template('etch3d.html')
+
+@app.route('/uploadFile')
+def uploadFile():
     return render_template('index.html')
+
+
+
 
 @app.route('/editor')
 def editor():
-	return render_template('editor.html')
-	
+    return render_template('editor.html')	
 
 @app.route('/sendServer', methods=['GET','POST'])
 def send_as_png():
@@ -50,7 +57,7 @@ def send_as_png():
             f.write(plaindata)
 
 
-        return render_template('receiveSvg.html',str=datauri)
+        return render_template('etch3d.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -68,9 +75,15 @@ def upload():
                                 filename=filename))
 
 
+
+@app.route('/marchingCube')
+def initial3Dview():
+    return render_template('threeDview.html')
+
 @app.route('/marchingCube/<filename>')
 def marching_cube(filename):
     return render_template('Marching-Cubes.html',url=app.config['UPLOAD_FOLDER']+filename)
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

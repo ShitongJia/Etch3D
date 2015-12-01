@@ -28,7 +28,7 @@
     var is_ready = false;
     curConfig = {
       canvas_expansion: 1, 
-      dimensions: [900,600], 
+      dimensions: [640,480], 
       initFill: {color: 'fff', opacity: 1},
       initStroke: {width: 1.5, color: '000', opacity: 1},
       initOpacity: 1,
