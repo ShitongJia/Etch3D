@@ -409,7 +409,7 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
   var pattern = svgFactory_.createSVGElement({
     'element': 'pattern',
     'attr': {
-      'id': 'checkerPattern',
+      'id': 'gridPattern',
       'patternUnits': 'userSpaceOnUse',
       'x': 0,
       'y': 0,
@@ -461,7 +461,7 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 			'y': 0,
 			'stroke-width': 1,
 			'stroke': '#000',
-			'fill': 'url(#checkerPattern)',
+			'fill': 'url(#gridPattern)',
 			'style': 'pointer-events:none'
 		}
 	});

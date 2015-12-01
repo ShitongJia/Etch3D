@@ -28,7 +28,7 @@
     var is_ready = false;
     curConfig = {
       canvas_expansion: 1, 
-      dimensions: [580,400], 
+      dimensions: [900,600], 
       initFill: {color: 'fff', opacity: 1},
       initStroke: {width: 1.5, color: '000', opacity: 1},
       initOpacity: 1,
@@ -539,10 +539,11 @@
           // dataType: 'json',
           // contentType: 'application/json;charset=UTF-8',
           success: function(){
-            console.log("The data URI for the picture is: "+datauri);
+            newWindow = window.open("/marchingCube/eik3d.vtk","_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=600, width=600, height=400");
+            {newWindow.focus();}
           }
         });        
-          exportWindow.location.href = datauri;
+          //exportWindow.location.href = datauri;
           // var done = $.pref('export_notice_done');
           // if(done !== "all") {
           //   var note = uiStrings.notification.saveFromBrowser.replace('%s', 'PNG');
@@ -1314,7 +1315,7 @@
             "stroke": "none",
             "id": "canvas_background",
             "opacity": 1,
-            "fill": fill || "#fff",
+            "fill": fill || "#000",
             "style": "pointer-events:none"
           }
         });
@@ -2384,7 +2385,7 @@
         // Open placeholder window (prevents popup)
         if(!customHandlers.pngsave)  {
           var str = uiStrings.notification.loadingImage;
-          exportWindow = window.open("data:text/html;charset=utf-8,<title>" + str + "<\/title><h1>" + str + "<\/h1>");
+          //exportWindow = window.open("data:text/html;charset=utf-8,<title>" + str + "<\/title><h1>" + str + "<\/h1>");
         }
 
         if(window.canvg) {

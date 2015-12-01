@@ -535,6 +535,14 @@ html, body {
 	padding-top: 4px;
 }
 
+ div#threeDview{
+   width: 50%;
+   height: 100%;
+   padding:3%;
+   float: right;
+ }
+
+
  div#workarea {
 	display: inline-table-cell;
 	position:absolute;
