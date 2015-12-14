@@ -536,11 +536,9 @@
           url: '/sendServer',
           type: 'POST',
           data: {sendPNG:datauri},
-          // dataType: 'json',
-          // contentType: 'application/json;charset=UTF-8',
           success: function(){
-            newWindow = window.open("/marchingCube/eik3d.vtk","_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=600, width=600, height=400");
-            {newWindow.focus();}
+            // newWindow = window.open("/marchingCube/eik3d.vtk","_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=600, width=600, height=400");
+            // {newWindow.focus();}
           }
         });        
           //exportWindow.location.href = datauri;

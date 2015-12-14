@@ -202,7 +202,7 @@
 		</div>
 		
 		<div id = "send_as_svg"  class= "draginput">	
-			<span> Send the SVG as PNG </span>
+			<span> Generate the 3d Visualization</span>
 		</div>
 		
 	</div>
@@ -600,14 +600,15 @@
 			<textarea id="svg_source_textarea" spellcheck="false"></textarea>
 		</form>
 		<div id="tool_source_back" class="toolbar_button">
-			<button id="tool_save_as" class = "ok" > Save as SVG</button>
+			<!-- <button id="tool_save_as" class = "ok" > Save as SVG</button> -->
 			<button id="tool_source_cancel" class="cancel" >Cancel</button>
 			<button id="tool_source_save" class="ok">Apply Changes</button>	
 		</div>
 	</div>
 </div>
 <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it to SVG/PDF/PNG downloadable file.
-     The form is populated and submitted by the JavaScript below. -->
+     The form is populated and submitted 
+     by the JavaScript below. -->
 <!-- <form id="svgform" method="post" action="filesave.php">
  <input type="hidden" id="output_format" name="output_format" value="">
  <input type="hidden" id="data" name="data" value="">

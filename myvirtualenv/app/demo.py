@@ -23,9 +23,9 @@ def allowed_file(filename):
 def index():
     return render_template('etch3d.html')
 
-@app.route('/uploadFile')
-def uploadFile():
-    return render_template('index.html')
+# @app.route('/uploadFile')
+# def uploadFile():
+#     return render_template('index.html')
 
 
 
@@ -49,11 +49,9 @@ def send_as_png():
             elif bit == 'base64':
                 b64 = True
 
-        # Do something smart with charset and b64 instead of assuming
         plaindata = data.decode("base64")
 
-        # Do something smart with mime_type
-        with open('uploads/spam.png', 'wb') as f:
+        with open('uploads/tmp.png', 'wb') as f:
             f.write(plaindata)
 
 

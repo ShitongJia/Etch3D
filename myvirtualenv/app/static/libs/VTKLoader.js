@@ -48,7 +48,6 @@ THREE.VTKLoader.prototype = {
 
        
         var res= new Object();
-       
         var value = [];
         
 
@@ -66,29 +65,22 @@ THREE.VTKLoader.prototype = {
         }
 
         pattern = /ORIGIN+[ ]+([\+|\-]?[\d]+)[ ]+([\+|\-]?[\d]+)[ ]+([\+|\-]?[\d]+)/g;
-
         if ( result = pattern.exec( data ) ) {
             res.origin = [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
         }
 
         pattern = /SPACING+[ ]+([\+|\-]?[\d]+[\.][\d]+)[ ]+([\+|\-]?[\d]+[\.][\d]+)[ ]+([\+|\-]?[\d]+[\.][\d]+)/g;
-
         if ( result = pattern.exec( data ) ) {
             res.spacing = [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
         }
 
-        // float
-        //var lookupTable = "LOOKUP_TABLE default"
         var scalar = data.split("default")[1]; 
-        //console.log(scalar);
+
         pattern = /[\+|\-]?\d+[\.\d]+[\s]/g;
         while ( ( result = pattern.exec( scalar ) ) != null ){
 
             addValue( parseFloat(result));
         }
-        //console.log(result);
-
-        // 3 int int int
 
         res.weight = value;
 
