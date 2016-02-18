@@ -2,12 +2,17 @@
 This is the project for Meng Project
 
 How to use this web application 
+
 Currently I do not have a real sever for this project so if you want to use it, you may want to install the virtual environment to run the application.
  
 To get started, 
+
 1. Install virtual environment for this web application.
+
 a. Install Python
+
 b. Install Flask
+
 For more details, see the section "Installing Flask" in the following page:
 http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 
